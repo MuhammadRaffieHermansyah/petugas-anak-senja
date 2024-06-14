@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "203892034284",
+    "project_id": "petugas-dishub",
+    "storage_bucket": "petugas-dishub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203892034284:android:299c8ba7e43877d834f3c9",
+        "android_client_info": {
+          "package_name": "com.example.tes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3u2qnggn0xKsLBQS2wTmYXLYitQW8r4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

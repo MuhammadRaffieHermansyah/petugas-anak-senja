@@ -24,7 +24,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           'Ubah Kata Sandi',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(

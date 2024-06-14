@@ -13,7 +13,7 @@ class _BantuanPageState extends State<BantuanPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.blue,
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 22),

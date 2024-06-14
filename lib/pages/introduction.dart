@@ -12,8 +12,13 @@ class _IntroductionState extends State<Introduction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Introductions'),
-        backgroundColor: Colors.orange,
+        title: const Text('Introductions',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            )),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blue,
       ),
       body: const SingleChildScrollView(
         child: Column(

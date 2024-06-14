@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tes/pages/absen_siswa.dart';
 import 'package:tes/pages/bantuan_page.dart';
 import 'package:tes/pages/home_page.dart';
 import 'package:tes/pages/profile_page.dart';
-import 'package:tes/pages/riwayat_page.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 
@@ -17,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    RiwayatPage(),
+    AbsenSiswa(),
     BantuanPage(),
     ProfilPage()
   ];
@@ -37,11 +37,11 @@ class _BottomBarState extends State<BottomBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
+            icon: Icon(Icons.school_outlined),
             label: 'Riwayat',
           ),
           BottomNavigationBarItem(
@@ -54,10 +54,12 @@ class _BottomBarState extends State<BottomBar> {
           ),
         ],
         type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        useLegacyColorScheme: true,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber,
+        selectedItemColor: Colors.blue,
         selectedIconTheme: const IconThemeData(size: 32),
         onTap: _onItemTapped,
       ),

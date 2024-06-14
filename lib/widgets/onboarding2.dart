@@ -5,23 +5,19 @@ class Onboarding2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          'Selamat datang \n sopir Anak Senja',
+        Text(
+          'Selamat datang \n Di Aplikasi Tracking \n Dishub',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 22,
+            fontSize: 28,
             fontWeight: FontWeight.w900,
           ),
         ),
-        Image.asset(
-          'assets/images/onboarding.png',
-          width: 270,
-          height: 270,
-        ),
-        const Text(
+        SizedBox(height: 12),
+        Text(
           'Aplikasi untuk memberikan informasi\n lokasi terkini angkot.',
           textAlign: TextAlign.center,
           style: TextStyle(

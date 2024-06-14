@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tes/pages/null_riwayat.dart';
 import 'package:tes/widgets/riwayat/berangkat.dart';
 import 'package:tes/widgets/riwayat/pulang.dart';
 
@@ -19,7 +18,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             'Riwayat',

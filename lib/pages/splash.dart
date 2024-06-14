@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
             const SizedBox(height: 20),
             LinearProgressIndicator(
               value: _progress,
-              color: Colors.amber,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(12),
               minHeight: 5,
               backgroundColor: Colors.black38,

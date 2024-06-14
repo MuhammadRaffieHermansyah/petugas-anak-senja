@@ -12,7 +12,7 @@ class UpdateAccount extends StatelessWidget {
           'Update Data Account',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.blue,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
@@ -24,9 +24,9 @@ class UpdateAccount extends StatelessWidget {
               title: 'Nama',
               subTitle: 'Budi Jawa',
               icon: Icon(
-                Icons.email_outlined,
-                color: Colors.orange,
-                size: 26,
+                Icons.person_outline,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             InfoAccount(
@@ -34,8 +34,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: 'budijawa@gmail.com',
               icon: Icon(
                 Icons.email_outlined,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),
@@ -44,8 +44,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: '123456789',
               icon: Icon(
                 Icons.person_pin_outlined,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),
@@ -54,8 +54,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: 'P 1234 ST',
               icon: Icon(
                 Icons.car_repair_outlined,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),
@@ -64,8 +64,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: '082144665290',
               icon: Icon(
                 Icons.phone,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),
@@ -74,8 +74,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: 'Sopir Angkot',
               icon: Icon(
                 Icons.people,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),
@@ -84,8 +84,8 @@ class UpdateAccount extends StatelessWidget {
               subTitle: 'M9H4+MG8,Panggul Mlati,Kepanjen,Kec.Gum',
               icon: Icon(
                 Icons.location_on_outlined,
-                color: Colors.orange,
-                size: 26,
+                color: Colors.blue,
+                size: 22,
               ),
             ),
             SizedBox(height: 16),

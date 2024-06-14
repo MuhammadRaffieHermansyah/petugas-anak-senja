@@ -76,9 +76,9 @@ class _OptionProfileState extends State<OptionProfile> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          height: 280,
+          height: 240,
           decoration: const BoxDecoration(
-            color: Colors.orange,
+            color: Colors.blue,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -104,16 +104,16 @@ class _OptionProfileState extends State<OptionProfile> {
               children: [
                 const Text(
                   'Akun',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 19),
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
                 ),
                 const SizedBox(height: 9),
                 Row(
                   children: [
                     Container(
-                      width: 60,
-                      height: 50,
+                      width: 45,
+                      height: 45,
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: Colors.blue,
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),
                         ),
@@ -121,7 +121,7 @@ class _OptionProfileState extends State<OptionProfile> {
                       child: const Center(
                         child: Icon(
                           Icons.shield,
-                          size: 24,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -137,7 +137,9 @@ class _OptionProfileState extends State<OptionProfile> {
                               Text(
                                 'Data Profil',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 textAlign: TextAlign.left,
                               ),
                               SizedBox(
@@ -147,7 +149,10 @@ class _OptionProfileState extends State<OptionProfile> {
                           ),
                           Text(
                             'Periksa atau ubah data anda',
-                            style: TextStyle(fontSize: 12, color: Colors.black),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
@@ -175,16 +180,16 @@ class _OptionProfileState extends State<OptionProfile> {
               children: [
                 const Text(
                   'Keamanan',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 19),
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
                 ),
                 const SizedBox(height: 9),
                 Row(
                   children: [
                     Container(
-                      width: 60,
-                      height: 50,
+                      width: 45,
+                      height: 45,
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: Colors.blue,
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),
                         ),
@@ -192,7 +197,7 @@ class _OptionProfileState extends State<OptionProfile> {
                       child: const Center(
                         child: Icon(
                           Icons.lock,
-                          size: 24,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -248,16 +253,16 @@ class _OptionProfileState extends State<OptionProfile> {
               children: [
                 const Text(
                   'Tentang',
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 19),
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
                 ),
                 const SizedBox(height: 9),
                 Row(
                   children: [
                     Container(
-                      width: 60,
-                      height: 50,
+                      width: 45,
+                      height: 45,
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: Colors.blue,
                         borderRadius: BorderRadius.all(
                           Radius.circular(25),
                         ),
@@ -265,7 +270,7 @@ class _OptionProfileState extends State<OptionProfile> {
                       child: const Center(
                         child: Icon(
                           Icons.info,
-                          size: 24,
+                          size: 20,
                         ),
                       ),
                     ),
@@ -305,9 +310,7 @@ class _OptionProfileState extends State<OptionProfile> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 35,
-        ),
+        const SizedBox(height: 30),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 60),
           child: ElevatedButton(
@@ -321,6 +324,10 @@ class _OptionProfileState extends State<OptionProfile> {
               // );
             },
             style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 0,
+                vertical: 6,
+              ),
               shadowColor: Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -329,7 +336,7 @@ class _OptionProfileState extends State<OptionProfile> {
             ),
             child: Center(
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
+                margin: const EdgeInsets.symmetric(vertical: 0),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -341,9 +348,10 @@ class _OptionProfileState extends State<OptionProfile> {
                     Text(
                       'Sign Out',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),

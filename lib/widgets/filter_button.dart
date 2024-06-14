@@ -39,7 +39,7 @@ class _FilterButtonState extends State<FilterButton> {
         const Text(
           'Pilih Tanggal',
           style: TextStyle(
-              color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 18),
+              color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         const SizedBox(
           height: 8,
@@ -54,7 +54,7 @@ class _FilterButtonState extends State<FilterButton> {
               const Icon(
                 Icons.calendar_month,
                 size: 40,
-                color: Colors.amber,
+                color: Colors.blue,
               ),
               const SizedBox(
                 width: 6,
@@ -79,7 +79,7 @@ class _FilterButtonState extends State<FilterButton> {
               )),
               const Icon(
                 Icons.arrow_forward_ios_outlined,
-                color: Colors.amber,
+                color: Colors.blue,
               ),
             ],
           ),

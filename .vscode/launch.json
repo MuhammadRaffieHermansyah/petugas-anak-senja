@@ -4,19 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+
         {
-            "name": "tes",
+            "name": "DISHUB",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "tes (profile mode)",
+            "name": "DISHUB (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "tes (release mode)",
+            "name": "DISHUB (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

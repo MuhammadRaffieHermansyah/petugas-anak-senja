@@ -19,7 +19,7 @@ class _CardRiwayatState extends State<CardRiwayat> {
             const Text(
               '08 Mei 2024',
               style: TextStyle(
-                color: Colors.orange,
+                color: Colors.blue,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

@@ -39,7 +39,7 @@ class InfoAccount extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                          color: Colors.orange,
+                          color: Colors.blue,
                           fontWeight: FontWeight.bold,
                           fontSize: 17),
                     ),
