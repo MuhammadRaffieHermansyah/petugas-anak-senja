@@ -11,10 +11,12 @@ class _BantuanPageState extends State<BantuanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
-      ),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   backgroundColor: Colors.blue,
+      // ),
+      
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(

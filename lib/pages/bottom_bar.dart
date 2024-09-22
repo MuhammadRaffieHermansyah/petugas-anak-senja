@@ -4,10 +4,11 @@ import 'package:tes/pages/bantuan_page.dart';
 import 'package:tes/pages/home_page.dart';
 import 'package:tes/pages/profile_page.dart';
 
-/// Flutter code sample for [BottomNavigationBar].
-
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key});
+  const BottomBar({super.key, this.indexPage, this.query, this.search});
+
+  final String? query, search;
+  final int? indexPage;
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -21,6 +22,12 @@ class _BottomBarState extends State<BottomBar> {
     BantuanPage(),
     ProfilPage()
   ];
+
+  @override
+  void initState() {
+    _selectedIndex = widget.indexPage ?? 0;
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,7 +63,7 @@ class _BottomBarState extends State<BottomBar> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         useLegacyColorScheme: true,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.black,
         showUnselectedLabels: true,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
