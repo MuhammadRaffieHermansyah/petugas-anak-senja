@@ -17,7 +17,6 @@ class AbsenProvider {
       body: {'student_id': id},
     );
     final data = json.decode(response.body);
-    print(data);
     return data;
   }
 }

@@ -1,5 +1,5 @@
 class ApiKey {
-  static const String mainAPI = 'http://192.168.1.4:8000';
+  static const String mainAPI = 'http://192.168.1.8:8000';
 
   // Update Location
   static const String updateLocation = '$mainAPI/api/update-location';

@@ -5,9 +5,11 @@ import 'package:tes/pages/home_page.dart';
 import 'package:tes/pages/profile_page.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key, this.indexPage, this.query, this.search});
+  const BottomBar({
+    super.key,
+    this.indexPage,
+  });
 
-  final String? query, search;
   final int? indexPage;
 
   @override

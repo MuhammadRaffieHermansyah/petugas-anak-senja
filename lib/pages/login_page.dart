@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/angkutan_biru_removebg_preview.png',
                   height: 170,
                   width: 170,
                 ),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -92,7 +93,7 @@ class _FilterButtonState extends State<FilterButton> {
             String dateRange =
                 "?start=${DateFormat('y-MM-dd').format(_selectedDate.start)}&end=${DateFormat('y-MM-dd').format(_selectedDate.end)}";
             // print(selectedDate);
-            print(dateRange);
+            log(dateRange);
             // Navigator.pushReplacement(
             //   context,
             //   MaterialPageRoute(

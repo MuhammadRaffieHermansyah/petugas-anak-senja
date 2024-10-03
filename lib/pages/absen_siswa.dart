@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tes/get_models/get_siswa.dart';
@@ -7,7 +9,11 @@ import 'package:tes/providers/siswa_provider.dart';
 import 'package:tes/widgets/absen/absen_card.dart';
 
 class AbsenSiswa extends StatefulWidget {
-  const AbsenSiswa({super.key, this.query, this.search});
+  const AbsenSiswa({
+    super.key,
+    this.query,
+    this.search,
+  });
 
   final String? query;
   final String? search;
@@ -93,10 +99,8 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BottomBar(
+                        builder: (context) => const BottomBar(
                           indexPage: 1,
-                          query: "search=${searchController.text}",
-                          search: searchController.text,
                         ),
                       ),
                     );
@@ -150,7 +154,7 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         color: Colors.white,
         child: FutureBuilder<GetSiswa>(
-          future: SiswaProvider.getSiswa(widget.query),
+          future: SiswaProvider.getSiswa("search=${searchController.text}"),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Row(
