@@ -19,7 +19,7 @@ class ProfileCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
-                color: Color.fromARGB(255, 219, 210, 210),
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               child: const Center(
                 child: Row(
@@ -29,7 +29,6 @@ class ProfileCard extends StatelessWidget {
                       minRadius: 45,
                       maxRadius: 45,
                       backgroundImage: AssetImage('assets/images/profil.png'),
-                      backgroundColor: Colors.blue,
                     ),
                     SizedBox(width: 10),
                     Expanded(

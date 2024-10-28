@@ -51,7 +51,6 @@ class _CardAbsenState extends State<CardAbsen> {
           ElevatedButton(
             onPressed: () {
               if (isAbsen == true) {
-                // nanti in iberisi kode update ke table riwayat absen berangkat
                 return;
               } else {
                 AbsenProvider.createAbsen(widget.id.toString());

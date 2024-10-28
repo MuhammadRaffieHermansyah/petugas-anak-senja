@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tes/get_models/get_siswa.dart';
 import 'package:tes/models/siswa.dart';
 import 'package:tes/pages/bottom_bar.dart';
@@ -11,11 +10,9 @@ import 'package:tes/widgets/absen/absen_card.dart';
 class AbsenSiswa extends StatefulWidget {
   const AbsenSiswa({
     super.key,
-    this.query,
     this.search,
   });
 
-  final String? query;
   final String? search;
 
   @override
@@ -25,35 +22,11 @@ class AbsenSiswa extends StatefulWidget {
 class _AbsenSiswaState extends State<AbsenSiswa> {
   final TextEditingController searchController = TextEditingController();
 
-  setSearch() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    searchController.text = prefs.get('search').toString() == 'null'
-        ? ''
-        : prefs.get('search').toString();
-  }
-
-  deleteSearch() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('search');
-  }
-
-  @override
-  void initState() {
-    setSearch();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    deleteSearch();
-    searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Absen Siswa',
           style: TextStyle(
@@ -93,14 +66,12 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
                   textInputAction: TextInputAction.done,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   onEditingComplete: () async {
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString('search', searchController.text);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BottomBar(
+                        builder: (context) => BottomBar(
                           indexPage: 1,
+                          search: searchController.text,
                         ),
                       ),
                     );
@@ -154,7 +125,10 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         color: Colors.white,
         child: FutureBuilder<GetSiswa>(
-          future: SiswaProvider.getSiswa("search=${searchController.text}"),
+          future: SiswaProvider.getSiswa(
+              widget.search == '' || widget.search == null
+                  ? ''
+                  : "search=${widget.search}"),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Row(
@@ -187,7 +161,7 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
                         ),
                       ),
                       Text(
-                        'ATAU',
+                        'atau',
                         style: TextStyle(
                           fontSize: 16,
                         ),

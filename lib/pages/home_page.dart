@@ -1,8 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tes/api_key.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,32 +17,54 @@ class _HomePageState extends State<HomePage> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   bool isOffline = false;
-  Set<Marker> _markers = {};
-  PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
+  final LocationSettings locationSettings = const LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 100,
+  );
 
-  connectPusher() async {
-    await pusher.init(
-        apiKey: "26a15662666ddc9d24a5", cluster: "ap1", onEvent: onEvent);
-    await pusher.subscribe(channelName: "LocationUpdate");
-    await pusher.connect();
-  }
+  Timer? _trackingTimer;
 
-  void onEvent(PusherEvent event) {
-    Map<String, dynamic> data = json.decode(event.data);
+  Stream<Position> positionStream = Geolocator.getPositionStream(
+    locationSettings: const LocationSettings(
+      accuracy: LocationAccuracy.best,
+    ),
+  );
 
-    String latitude = data['data']['lat'];
-    String longitude = data['data']['long'];
+  Future<void> _startTracking() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-    double lat = double.parse(latitude);
-    double long = double.parse(longitude);
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Layanan lokasi tidak diaktifkan');
+    }
 
-    Marker marker = Marker(
-      markerId: const MarkerId("1"),
-      position: LatLng(lat, long),
-    );
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Izin lokasi ditolak');
+      }
+    }
 
-    setState(() {
-      _markers = {marker};
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Izin lokasi ditolak secara permanen');
+    }
+
+    _trackingTimer =
+        Timer.periodic(const Duration(milliseconds: 500), (timer) async {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.bestForNavigation,
+      );
+      final url = Uri.parse(ApiKey.updateLocation);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      await http.post(url, headers: {
+        'Authorization': 'Bearer $token',
+      }, body: {
+        "latitude": position.latitude.toString(),
+        "longitude": position.longitude.toString(),
+      });
     });
   }
 
@@ -50,14 +74,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    connectPusher();
+    _startTracking();
     isOffline = false;
     super.initState();
   }
 
   @override
   void dispose() {
-    pusher.disconnect();
+    _trackingTimer?.cancel();
     super.dispose();
   }
 
@@ -81,80 +105,16 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           GoogleMap(
-            myLocationEnabled: true,
             myLocationButtonEnabled: true,
-            fortyFiveDegreeImageryEnabled: true,
+            myLocationEnabled: true,
             compassEnabled: true,
-            trafficEnabled: true,
-            tiltGesturesEnabled: true,
-            rotateGesturesEnabled: true,
-            mapToolbarEnabled: true,
-            scrollGesturesEnabled: true,
+            zoomControlsEnabled: true,
+            zoomGesturesEnabled: true,
             mapType: MapType.normal,
             onMapCreated: _onMapCreated,
-            markers: _markers,
             initialCameraPosition: const CameraPosition(
               target: LatLng(-8.268689, 113.362703),
               zoom: 14.0,
-            ),
-          ),
-          Container(
-            padding:
-                const EdgeInsets.only(left: 10, top: 2, bottom: 10, right: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const CircleAvatar(
-                  minRadius: 25,
-                  maxRadius: 25,
-                  backgroundImage: AssetImage('assets/images/home.png'),
-                  backgroundColor: Colors.grey,
-                ),
-                Container(
-                  width: 110,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        isOffline ? 'Lagi Offline' : 'Lagi Online',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (isOffline == false) {
-                      setState(() {
-                        isOffline = true;
-                        pusher.disconnect();
-                      });
-                    } else {
-                      setState(() {
-                        isOffline = false;
-                        connectPusher();
-                      });
-                    }
-                  },
-                  icon: isOffline
-                      ? const Icon(
-                          Icons.radio_button_checked,
-                          size: 40,
-                          color: Colors.red,
-                        )
-                      : const Icon(
-                          Icons.radio_button_checked,
-                          size: 40,
-                          color: Colors.green,
-                        ),
-                )
-              ],
             ),
           ),
         ],

@@ -1,5 +1,5 @@
 class ApiKey {
-  static const String mainAPI = 'http://192.168.1.8:8000';
+  static const String mainAPI = 'http://192.168.1.4:8000';
 
   // Update Location
   static const String updateLocation = '$mainAPI/api/update-location';
@@ -11,7 +11,7 @@ class ApiKey {
   static const String logout = '$mainAPI/api/logout';
 
   // Student
-  static const String studentGet = '$mainAPI/api/get-student';
+  static const String studentGet = 'http://192.168.1.4:8000/api/get-student';
   static const String studentCreate = '$mainAPI/api/create-student';
   static const String studentDetail = '$mainAPI/api/detail-student';
   static const String studentUpdate = '$mainAPI/api/update-student';

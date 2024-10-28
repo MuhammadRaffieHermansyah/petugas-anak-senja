@@ -8,32 +8,40 @@ class BottomBar extends StatefulWidget {
   const BottomBar({
     super.key,
     this.indexPage,
+    this.search,
   });
 
   final int? indexPage;
+  final String? search;
 
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
+  static List<Widget> _widgetOptions(String? search) => [
+        const HomePage(),
+        AbsenSiswa(search: search),
+        const BantuanPage(),
+        const ProfilPage()
+      ];
+
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    AbsenSiswa(),
-    BantuanPage(),
-    ProfilPage()
-  ];
+  String? search;
 
   @override
   void initState() {
-    _selectedIndex = widget.indexPage ?? 0;
     super.initState();
+    _selectedIndex = widget.indexPage ?? 0;
+    search = widget.search; 
   }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (index != 1) {
+        search = null; 
+      }
     });
   }
 
@@ -41,7 +49,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions(search).elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

@@ -75,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png'),
+            Image.asset('assets/images/angkutan_biru_removebg_preview.png'),
             const SizedBox(height: 20),
             LinearProgressIndicator(
               value: _progress,
