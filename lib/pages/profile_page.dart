@@ -13,12 +13,16 @@ class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: SizedBox(
             width: double.infinity,
             child: Stack(
-              children: [OptionProfile(), ProfileCard()],
+              children: [
+                OptionProfile(),
+                ProfileCard(),
+              ],
             ),
           ),
         ),

@@ -1,12 +1,18 @@
-import 'dart:async';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tes/widgets/filter_sheet.dart';
+import 'package:tes/get_models/get_siswa.dart';
+import 'package:tes/models/siswa.dart';
+import 'package:tes/pages/bottom_bar.dart';
+import 'package:tes/providers/siswa_provider.dart';
+import 'package:tes/widgets/absen/absen_card.dart';
 
 class AbsenSiswa extends StatefulWidget {
-  const AbsenSiswa({super.key, this.query, this.search});
+  const AbsenSiswa({
+    super.key,
+    this.search,
+  });
 
-  final String? query;
   final String? search;
 
   @override
@@ -14,61 +20,13 @@ class AbsenSiswa extends StatefulWidget {
 }
 
 class _AbsenSiswaState extends State<AbsenSiswa> {
-  List<bool> isGoList =
-      List.generate(50, (index) => false); // Initialize the list with false
-
-  Timer? _searchTimer;
-  final TextEditingController _searchController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-
-  void _onSearch(String value) {
-    _searchTimer?.cancel();
-    _searchTimer = Timer(
-      const Duration(milliseconds: 500),
-      () {
-        if (!mounted) return;
-
-        if (value.isEmpty) {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => SaldoPage(
-          //       search: value,
-          //     ),
-          //   ),
-          // );
-        } else {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => SaldoPage(
-          //       query: "nama=$value",
-          //       search: value,
-          //     ),
-          //   ),
-          // );
-        }
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    _searchController.text = widget.search ?? '';
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _searchTimer?.cancel();
-    _searchController.dispose();
-    super.dispose();
-  }
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Absen Siswa',
           style: TextStyle(
@@ -76,182 +34,165 @@ class _AbsenSiswaState extends State<AbsenSiswa> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        backgroundColor: Colors.blue,
-        bottom: AppBar(
-          title: Expanded(
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-              },
-              child: Container(
-                margin: const EdgeInsets.only(
-                  left: 0,
-                  top: 10,
-                  right: 0,
-                  bottom: 10,
-                ),
-                padding: const EdgeInsets.only(
-                  left: 0,
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                ),
-                height: 35,
-                decoration: BoxDecoration(
-                  color: Colors.white, // Background color
-                  borderRadius: BorderRadius.circular(6.0), // Border radius
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  focusNode: _focusNode,
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    hintText: 'Cari nasabah...',
-                    hintStyle: const TextStyle(color: Colors.black),
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search, color: Colors.black),
-                    contentPadding: const EdgeInsets.only(
-                      top: 2,
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                    ),
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(Icons.clear, color: Colors.black),
-                            onPressed: () {
-                              _searchController.clear();
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const SaldoPage(),
-                              //   ),
-                              // );
-                            },
-                          )
-                        : null,
-                  ),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    letterSpacing: 1,
-                    fontSize: 16,
-                  ),
-                  cursorColor: Colors.black,
-                  onSubmitted: (value) {
-                    if (mounted) {
-                      _onSearch(value);
-                    }
-                  },
-                ),
-              ),
-            ),
+        backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: const Icon(Icons.refresh),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) => const FilterSheet(),
-                  );
-                },
-                icon: const Icon(
-                  Icons.tune_sharp,
-                  size: 30,
-                )),
-            const SizedBox(
-              width: 14,
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size(double.infinity, 70),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              bottom: 18,
+              left: 12,
+              right: 12,
             ),
-          ],
-          iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: Colors.blue,
-        ),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: ListView.separated(
-          itemCount: 50,
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          itemBuilder: (context, index) {
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(85, 210, 210, 210),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          'Abdul Tiyas Ramadhan',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          'Kelas IX-A',
-                          style: TextStyle(color: Colors.black45, fontSize: 10),
-                        )
-                      ],
-                    ),
+            child: Column(
+              children: [
+                TextFormField(
+                  style: const TextStyle(
+                    color: Colors.white,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (isGoList[index] == true) {
-                        return;
-                      } else {
-                        setState(() {
-                          isGoList[index] = !isGoList[index];
-                        });
-                      }
-                    },
-                    style: !isGoList[index]
-                        ? ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            backgroundColor: Colors.lightBlueAccent,
-                          )
-                        : ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: Colors.grey,
-                          ),
-                    child: Text(
-                      !isGoList[index] ? 'Berangkat' : "Pulang",
-                      style: const TextStyle(
+                  maxLines: 1,
+                  controller: searchController,
+                  cursorColor: Colors.white,
+                  textInputAction: TextInputAction.done,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onEditingComplete: () async {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BottomBar(
+                          indexPage: 1,
+                          search: searchController.text,
+                        ),
+                      ),
+                    );
+                  },
+                  decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
-                        fontSize: 10,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                    ),
+                    alignLabelWithHint: false,
+                    focusColor: Colors.white,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 12,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    suffixIconColor: Colors.white,
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      'Cari Siswa',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
                       ),
                     ),
                   ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        color: Colors.white,
+        child: FutureBuilder<GetSiswa>(
+          future: SiswaProvider.getSiswa(
+              widget.search == '' || widget.search == null
+                  ? ''
+                  : "search=${widget.search}"),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  ),
                 ],
-              ),
-            );
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                ),
+              );
+            } else {
+              final List<Siswa> data = snapshot.data!.data;
+              if (data.isEmpty) {
+                return const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Tidak ada data !',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        'atau',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        'Semua siswa sudah ter-absen !',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return ListView.separated(
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  Siswa item = data[index];
+                  return CardAbsen(
+                    nama: item.name,
+                    id: item.id,
+                    kelas: item.siswaClass.name,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(height: 10);
+                },
+                itemCount: data.length,
+              );
+            }
           },
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
         ),
       ),
     );

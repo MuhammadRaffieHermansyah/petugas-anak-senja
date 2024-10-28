@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:tes/pages/onboarding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tes/pages/bottom_bar.dart';
+import 'package:tes/pages/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,38 +14,30 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  double _loadingValue = 0.0;
-  final double _maxLoadingValue = 100.0;
   late AnimationController _controller;
   late Animation<double> _animation;
   double _progress = 0.0;
 
-  void _startLoading() {
-    Future.delayed(const Duration(seconds: 1), () {
-      if (_loadingValue < _maxLoadingValue) {
-        setState(() {
-          _loadingValue += 10;
-        });
-        _startLoading();
-      } else {
-        _navigateToHome();
-      }
-    });
+  void _navigateToHome() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.get('token'));
+    if (prefs.get('token') != null) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const BottomBar(),
+        ),
+      );
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+    }
   }
-
-  void _navigateToHome() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const Onboarding()));
-  }
-
-  // void checkSession() async {
-  //   await Future.delayed(const Duration(seconds: 100));
-  // }
 
   @override
   void initState() {
-    // checkSession();
-    // _startLoading();
     _controller = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
@@ -73,13 +69,13 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
-          // mainAxisAligntment: MainAxisAligntMent.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/logo.png'),
+            Image.asset('assets/images/angkutan_biru_removebg_preview.png'),
             const SizedBox(height: 20),
             LinearProgressIndicator(
               value: _progress,
